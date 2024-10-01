@@ -25,22 +25,22 @@
 
         .footer-text {
             position: absolute;
-            top: 0; /* Positioned at the top */
+            top: 0;
             width: 100%;
             text-align: center;
             color: red;
             background-color: transparent;
-            font-size: 85%; /* 20% smaller text */
+            font-size: 85%;
             font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
-            z-index: 10; /* Ensure it's above other content */
+            z-index: 10;
         }
 
         .footer-text span {
             display: inline-block;
             padding-left: 95%;
-            animation: slide 30s linear infinite;
+            animation: slide 25s linear infinite;
         }
 
         @keyframes slide {
@@ -51,6 +51,22 @@
             100% {
                 transform: translateX(-100%);
             }
+        }
+
+        /* Telegram Button */
+        .telegram-button {
+            position: absolute;
+            top: 3px; /* Adjust to move up/down */
+            left: 3px; /* Adjust to move left/right */
+            z-index: 20;
+            cursor: pointer;
+        }
+
+        .telegram-button img {
+            width: 60px;
+            height: 60px;
+            border-radius: 20%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 
@@ -81,9 +97,7 @@
             // Listen for messages from the iframe
             window.addEventListener('message', function (event) {
                 if (event.origin !== 'https://en.gdplayertv.to') return; // Change this to the actual origin if needed
-                // Check if the iframe is attempting to open a new tab
                 if (event.data && event.data.type === 'prevent-open') {
-                    // Handle preventing the new tab or window here
                     alert('Blocked a new tab from opening.');
                 }
             });
@@ -94,7 +108,11 @@
             // Hide the footer text after 10 seconds
             setTimeout(function () {
                 document.querySelector('.footer-text').style.display = 'none';
-            }, 32000); // 10 seconds delay to hide the text
+            }, 25000); // 25 seconds delay to hide the text
+        }
+
+        function openTelegram() {
+            window.open('https://t.me/talhasmovie_request_bot', '_blank');
         }
     </script>
 </head>
@@ -102,7 +120,12 @@
 <body>
 
     <div class="footer-text">
-        <span>Welcome to Talha's Stream, You're Watching SSC 1 HD Live on talhastream.rf.gd, For English Language Click 3Dot And Change Audio.</span>
+        <span>Welcome to Talha's Stream, You're Watching SSC 1 HD Live on talhastream.rf.gd.</span>
+    </div>
+
+    <!-- Telegram Button -->
+    <div class="telegram-button" onclick="openTelegram()">
+        <img src="https://s1.gifyu.com/images/SAe3R.png" alt="Telegram">
     </div>
 
     <iframe id="stream-iframe" sandbox="allow-same-origin allow-scripts" scrolling="no" frameborder="0" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection" allowfullscreen></iframe>
