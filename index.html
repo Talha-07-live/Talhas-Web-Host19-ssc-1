@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Cricket Stream</title>
-    
+
     <!-- Add Bootstrap CSS from cdnjs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 
@@ -13,11 +14,43 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
+            position: relative;
         }
+
         iframe {
             width: 100%;
             height: 100vh;
             border: none;
+        }
+
+        .footer-text {
+            position: absolute;
+            top: 0; /* Positioned at the top */
+            width: 100%;
+            text-align: center;
+            color: red;
+            background-color: transparent;
+            font-size: 85%; /* 20% smaller text */
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        .footer-text span {
+            display: inline-block;
+            padding-left: 95%;
+            animation: slide 30s linear infinite;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(8%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
         }
     </style>
 
@@ -25,10 +58,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
-        window.onload = function() {
+        window.onload = function () {
             // List of allowed domains
             const allowedDomains = [
-                'https://talhas.footballl.rf.gd/',
+                'https://talhas.footballl.rf.gd/',',
                 'https://wizardfc.official.rf.gd/',
                 'https://bhaichurikorbenna.servert.rf.gd/'
             ];
@@ -46,7 +79,7 @@
             const iframe = document.getElementById('stream-iframe');
 
             // Listen for messages from the iframe
-            window.addEventListener('message', function(event) {
+            window.addEventListener('message', function (event) {
                 if (event.origin !== 'https://en.gdplayertv.to') return; // Change this to the actual origin if needed
                 // Check if the iframe is attempting to open a new tab
                 if (event.data && event.data.type === 'prevent-open') {
@@ -57,13 +90,25 @@
 
             // Load the iframe
             iframe.src = 'https://en.gdplayertv.to/live-tv/ssc-1/?embed=1';
+
+            // Hide the footer text after 10 seconds
+            setTimeout(function () {
+                document.querySelector('.footer-text').style.display = 'none';
+            }, 30000); // 10 seconds delay to hide the text
         }
     </script>
 </head>
+
 <body>
-    <iframe id="stream-iframe" sandbox="allow-same-origin allow-scripts" scrolling="no" frameborder="0" loading "lazy" allow="accelerometer; encrypted-media; gyroscope, picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; Idle-detection" allowfullscreen></iframe>
+
+    <div class="footer-text">
+        <span>Welcome to Talha's Stream, You're Watching SSC 1 HD Live on talhastream.rf.gd, For English Language Click 3Dot And Change Audio.</span>
+    </div>
+
+    <iframe id="stream-iframe" sandbox="allow-same-origin allow-scripts" scrolling="no" frameborder="0" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection" allowfullscreen></iframe>
 
     <!-- Add Bootstrap JS Bundle (includes Popper) from cdnjs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
